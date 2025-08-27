@@ -13,9 +13,9 @@
    "description": "I HATE SKIDSSSSS",
    "host_permissions": [ "*://*.addu.edu.ph/*" ],
    "icons": {
-      "128": "icons/favicon-128x128.png",
-      "16": "icons/favicon-16x16.png",
-      "32": "icons/favicon-32x32.png"
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
    },
 
    "manifest_version": 3,
