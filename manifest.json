@@ -1,0 +1,30 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icons/favicon-128x128.png",
+         "16": "icons/favicon-16x16.png",
+         "32": "icons/favicon-32x32.png"
+      },
+   "default_title": "LoremIpsum"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "description": "I HATE SKIDSSSSS",
+   "host_permissions": [ "*://*.addu.edu.ph/*" ],
+   "icons": {
+      "128": "icons/favicon-128x128.png",
+      "16": "icons/favicon-16x16.png",
+      "32": "icons/favicon-32x32.png"
+   },
+
+   "manifest_version": 3,
+   "name": "LoremIpsum",
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "options.html"
+   },
+   "permissions": [ "scripting", "webNavigation", "storage" ],
+
+   "version": "1.0"
+}
