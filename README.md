@@ -1,3 +1,5 @@
+# DEMO WILL BE RELEASED SOON
+
 # LoremIpsum: "Answer‑Paster" for Philosophy
 
 > *Extension that helps with Daigler, you can essentially focus on the newer questions by "pasting" your previous answers automatically from previous quiz attempts*
