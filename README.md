@@ -32,7 +32,7 @@
 
 ## 📥 Installation
 
-1. **Download** [LoremIpsum1.0.zip](LoremIpsum1.0.zip)
+1. **Download** [LoremIpsum 1.0](https://github.com/itsnold/LoremIpsum/releases/tag/main)
 2. **Extract** the zip file to a folder on your computer
 3. **Open** Chrome → go to `chrome://extensions/`
 4. **Enable** "Developer mode" (toggle in top right)
