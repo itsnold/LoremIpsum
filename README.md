@@ -98,7 +98,7 @@
 ---
 
 ## ⚠️ Disclaimer
-For learning and productivity. Use responsibly and follow your Ateneo's policies.
+For learning and productivity. Use responsibly and follow Ateneo's policies.
 
 ---
 
