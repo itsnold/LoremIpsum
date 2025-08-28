@@ -1,3 +1,5 @@
+# IMPORTANT: This extension assists with re-applying previously correct answers, not cheating. Use only for questions you're confident about.
+
 # DEMO WILL BE RELEASED SOON
 
 # LoremIpsum: "Answer‑Paster" for Philosophy
