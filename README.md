@@ -1,6 +1,10 @@
-# LoremIpsum: "Answer‑Paster" for Philosophy  
+# LoremIpsum: "Answer‑Paster" for Philosophy
 
 > *Extension that helps with Daigler, you can essentially focus on the newer questions by "pasting" your previous answers automatically from previous quiz attempts*
+
+## 📦 Release v1.0
+
+**Download the latest release here:** [GitHub Releases Page](https://github.com/itsnold/LoremIpsum/releases/tag/main)
 
 ## 🌐 Community
 **Join our Discord for suggestions and feedback:** [https://discord.gg/n6fKsUkuXP](https://discord.gg/n6fKsUkuXP)
@@ -28,10 +32,13 @@
 
 ## 📥 Installation
 
-1. **Download** this folder to your machine
-2. **Open** Chrome → Extensions → enable Developer Mode
-3. **Click** "Load unpacked" and select the project folder
-4. **Verify** the extension appears with the provided icon
+1. **Download** [LoremIpsum1.0.zip](LoremIpsum1.0.zip)
+2. **Extract** the zip file to a folder on your computer
+3. **Open** Chrome → go to `chrome://extensions/`
+4. **Enable** "Developer mode" (toggle in top right)
+5. **Click** "Load unpacked" and select the extracted folder
+6. **Verify** the extension appears with the LoremIpsum icon
+
 
 ---
 

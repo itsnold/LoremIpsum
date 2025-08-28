@@ -10,7 +10,7 @@
    "background": {
       "service_worker": "background.js"
    },
-   "description": "I HATE SKIDSSSSS",
+   "description": "An extension that streamlines quiz management and answer handling for Daigler.",
    "host_permissions": [ "*://*.addu.edu.ph/*" ],
    "icons": {
       "128": "icons/icon128.png",
