@@ -9,6 +9,7 @@
 ## 📦 Release v1.0.1
 
 **Download the latest release here:** 
+
 [![Download LoremIpsum v1.0.1](https://img.shields.io/badge/Download%20ZIP-LoremIpsum1.0.1.zip-blue?style=for-the-badge&logo=google-chrome)](https://github.com/itsnold/LoremIpsum/releases/download/main/LoremIpsum1.0.1.zip)
 [GitHub Releases Page](https://github.com/itsnold/LoremIpsum/releases/tag/main)
 
