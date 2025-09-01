@@ -23,7 +23,7 @@ Use a mobile browser that supports desktop-style extensions (Android) or provide
 [![Open Orion — iOS](https://img.shields.io/badge/%F0%9F%8D%8E%20Open%20Orion%20%E2%80%94%20iOS-0f172a?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/us/app/orion-browser-by-kagi/id1484498200)
 
 Short hints:
-- Kiwi (Android): Download and install the APK. Then open Kiwi and visit <code>chrome://extensions</code> to enable Developer mode and load the unpacked extension or install it from the extension page.
+- Kiwi (Android): Download and install the APK. Then open Kiwi and visit <code>chrome://extensions</code> to enable Developer mode and load the unpacked extension.
 - Orion (iOS): Open the App Store link and install Orion. Follow Orion's in-app instructions for managing extensions.
 ## (Tutorial for these will be added soon)
 ## 🌐 Community
