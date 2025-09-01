@@ -6,25 +6,10 @@
 
 > *Extension that helps with Daigler, you can essentially focus on the newer questions by "pasting" your previous answers automatically from previous quiz attempts*
 
-## 📦 Release v1.0.1
+## 📦 Release v1.0
 
-**Download the latest release here:** 
-[![Download LoremIpsum v1.0.1](https://img.shields.io/badge/Download%20ZIP-LoremIpsum1.0.1.zip-blue?style=for-the-badge&logo=google-chrome)](https://github.com/itsnold/LoremIpsum/releases/download/main/LoremIpsum1.0.1.zip)
-[GitHub Releases Page](https://github.com/itsnold/LoremIpsum/releases/tag/main)
+**Download the latest release here:** [GitHub Releases Page](https://github.com/itsnold/LoremIpsum/releases/tag/main)
 
-## 📱 Mobile browsers (required for mobile use)
-
-Use a mobile browser that supports desktop-style extensions (Android) or provides a compatible extension API (iOS). Below are the recommended browsers and quick install hints.
-
-<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-	<a href="https://github.com/kiwibrowser/src/releases/download/1019022375/Kiwi-1019022375-x64-playstore.apk" style="display:inline-block;background:#0ea5e9;color:#fff;padding:12px 16px;border-radius:8px;text-decoration:none;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.12)">📥 Download Kiwi — Android</a>
-	<a href="https://apps.apple.com/us/app/orion-browser-by-kagi/id1484498200" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 16px;border-radius:8px;text-decoration:none;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.12)">🍎 Open Orion — iOS</a>
-</div>
-
-Short hints:
-- Kiwi (Android): Download and install the APK. Then open Kiwi and visit <code>chrome://extensions</code> to enable Developer mode and load the unpacked extension or install it from the extension page.
-- Orion (iOS): Open the App Store link and install Orion. Follow Orion's in-app instructions for managing extensions.
-## (Tutorial for these will be added soon)
 ## 🌐 Community
 **Join our Discord for suggestions and feedback:** [https://discord.gg/n6fKsUkuXP](https://discord.gg/n6fKsUkuXP)
 
