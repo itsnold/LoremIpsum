@@ -1,4 +1,4 @@
-// LoremIpsum Options Script
+// Lorem Ipsum Options Script
 
 (async () => {
     "use strict";
@@ -198,7 +198,7 @@
     // Display extension information in console
     function displayExtensionInfo() {
         console.log(`
-⚡ LoremIpsum v2.0
+⚡ Lorem Ipsum v2.0
 🚀 Community Type-to-Fill Tool
 🆓 Free & Open Source
 👥 Built by:

@@ -1,4 +1,4 @@
-// LoremIpsum Background Script
+// Lorem Ipsum Background Script
 
 (function() {
     "use strict";

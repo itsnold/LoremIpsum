@@ -1,0 +1,3 @@
+Always remember that this extension is for educational purposes only! It's designed to help you save time when filling out questions by letting you reuse answers you've already worked on (And that you're confident in).
+
+That said, please use it responsibly! This tool is meant to speed up your workflow, not to help you cheat or cut corners. Make sure you're still following all of Ateneo's academic integrity rules!

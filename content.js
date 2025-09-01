@@ -6,7 +6,7 @@
         return;
     }
 
-    const DELAY_MS = 7;
+    const DELAY_MS = 0;
     const STORAGE_KEY = "ttf_presets_" + location.hostname;
     let interfaceModal = null;
     let isInterfaceActive = false;
@@ -28,6 +28,15 @@
         } catch (error) {
             return new Uint8Array();
         }
+    }
+
+    function formatQuizNameForDisplay(quizName) {
+        // Make quiz names more readable by adding proper spacing and capitalization
+        return quizName
+            .replace(/([a-z])([A-Z])/g, '$1 $2')  // Add space between camelCase
+            .replace(/[_-]/g, ' ')                 // Replace underscores and dashes with spaces
+            .replace(/\b\w/g, l => l.toUpperCase()) // Capitalize first letter of each word
+            .trim();
     }
 
     // Query selector helper - returns array of elements
@@ -236,7 +245,14 @@
             if (refreshButton) refreshButton.style.display = "block";
             questionStatus.style.background = "rgba(239, 68, 68, 0.1)";
             questionStatus.style.borderColor = "rgba(239, 68, 68, 0.2)";
-            questionStatus.textContent = "⚠️ No active question found";
+            questionStatus.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                No active question found
+            `;
             return;
         }
 
@@ -250,11 +266,24 @@
             if (isManuallyCorrected) {
                 questionStatus.style.background = "rgba(245, 101, 101, 0.1)";
                 questionStatus.style.borderColor = "rgba(245, 101, 101, 0.2)";
-                questionStatus.textContent = `🔧 Manually corrected: ${questionId}`;
+                questionStatus.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                        <path d="M11,4H4a2,2 0,0,0-2,2V18a2,2 0,0,0,2,2H18a2,2 0,0,0,2-2V13"></path>
+                        <polygon points="18.5,2.5 21.5,5.5 18.5,8.5 18.5,2.5"></polygon>
+                        <line x1="18.5" y1="2.5" x2="18.5" y2="8.5"></line>
+                        <line x1="18.5" y1="5.5" x2="21.5" y2="5.5"></line>
+                    </svg>
+                    Manually corrected: ${questionId}
+                `;
             } else {
                 questionStatus.style.background = "rgba(34, 197, 94, 0.1)";
                 questionStatus.style.borderColor = "rgba(34, 197, 94, 0.2)";
-                questionStatus.textContent = `✅ Current question: ${questionId}`;
+                questionStatus.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                    Current question: ${questionId}
+                `;
             }
 
             let quizName = localStorage.getItem('ttf_selected_quiz') || getQuizName();
@@ -274,14 +303,20 @@
             }
 
             if (hasPreset) {
-                questionStatus.textContent += ` (preset available in "${quizName}")`;
+                questionStatus.innerHTML += ` (preset available in "${quizName}")`;
             }
         } else {
             questionStatus.style.display = "block";
             if (refreshButton) refreshButton.style.display = "block";
             questionStatus.style.background = "rgba(251, 146, 60, 0.1)";
             questionStatus.style.borderColor = "rgba(251, 146, 60, 0.2)";
-            questionStatus.textContent = "🔍 Question number not detected";
+            questionStatus.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21,21-4.35-4.35"></path>
+                </svg>
+                Question number not detected
+            `;
         }
     }
 
@@ -612,13 +647,24 @@
         title.textContent = "LoremIpsum - Quiz Mode";
         title.style.cssText = "font-size: 15px; display: flex; align-items: center; gap: 8px; color: #e2e8f0;";
         const icon = document.createElement("span");
-        icon.textContent = "📝";
-        icon.style.cssText = "font-size: 18px;";
+        icon.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+        </svg>`;
+        icon.style.cssText = "display: flex; align-items: center;";
         title.insertBefore(icon, title.firstChild);
         header.appendChild(title);
 
         const closeButton = document.createElement("button");
-        closeButton.textContent = "✕";
+        closeButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        `;
         closeButton.title = "Close";
         closeButton.style.cssText = `
             background: rgba(255,255,255,0.06);
@@ -645,13 +691,27 @@
 
         const importMessage = document.createElement("div");
         importMessage.innerHTML = `
-            <div style="font-size: 18px; color: #fbbf24; margin-bottom: 8px;">⚠️ No Quiz Presets Found</div>
+            <div style="font-size: 18px; color: #fbbf24; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                No Quiz Presets Found
+            </div>
             <div style="font-size: 14px; color: #93a3b8; line-height: 1.5;">You need to import quiz presets before you can use the auto-fill functionality.</div>
         `;
         content.appendChild(importMessage);
 
         const importFileButton = document.createElement("button");
-        importFileButton.innerHTML = "📥 Import Quiz Preset File";
+        importFileButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7,10 12,15 17,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Import Quiz Preset File
+        `;
         importFileButton.style.cssText = `
             padding: 12px 20px;
             border-radius: 8px;
@@ -695,7 +755,10 @@
                 const fileContent = await file.text();
                 const importData = JSON.parse(fileContent);
 
-                if (!importData.__loremipsum_preset_export__ || !importData.quiz || !importData.data) {
+                
+                const isValidFormat = (importData.__loremipsum_preset_export__ || importData.__fastfillo_preset_export__) && 
+                                    importData.quiz && importData.data;
+                if (!isValidFormat) {
                     showToast("Invalid preset file format");
                     return;
                 }
@@ -1142,8 +1205,25 @@
                 <div style="display: flex; flex-direction: column; gap: 4px; flex: 1;">
                     <div style="font-weight: 600; font-size: 14px; color: #e5e7eb;">${quizName}</div>
                     <div style="font-size: 12px; color: #93a3b8;">
-                        <span style="margin-right: 16px;">📝 ${questionCount} questions</span>
-                        <span>📅 Updated: ${lastUpdated}</span>
+                        <span style="margin-right: 16px; display: inline-flex; align-items: center; gap: 4px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10,9 9,9 8,9"></polyline>
+                            </svg>
+                            ${questionCount} questions
+                        </span>
+                        <span style="display: inline-flex; align-items: center; gap: 4px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Updated: ${lastUpdated}
+                        </span>
                     </div>
                 </div>
                 <button class="export-quiz-btn" data-quiz-name="${quizName}" style="
@@ -1315,13 +1395,24 @@
         title.textContent = "LoremIpsum";
         title.style.cssText = "font-size: 15px; display: flex; align-items: center; gap: 8px; color: #e2e8f0;";
         const icon = document.createElement("span");
-        icon.textContent = "📝";
-        icon.style.cssText = "font-size: 18px;";
+        icon.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+        </svg>`;
+        icon.style.cssText = "display: flex; align-items: center;";
         title.insertBefore(icon, title.firstChild);
         header.appendChild(title);
 
         const closeButton = document.createElement("button");
-        closeButton.textContent = "✕";
+        closeButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        `;
         closeButton.title = "Close";
         closeButton.style.cssText = `
             background: rgba(255,255,255,0.06);
@@ -1552,15 +1643,17 @@
             enableButton.style.boxShadow = "0 2px 8px rgba(5, 150, 105, 0.2)";
         });
 
-        const importButton = document.createElement("button");
-        importButton.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 6px;">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14,2 14,8 20,8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10,9 9,9 8,9"></polyline>
-        </svg>Import Answers`;
-        importButton.style.cssText = `
+        // File import button (restores previous capability when presets already exist)
+        const importFileButton = document.createElement("button");
+        importFileButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7,10 12,15 17,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Import Preset File
+        `;
+        importFileButton.style.cssText = `
             flex: 1;
             padding: 9px 12px;
             border-radius: 8px;
@@ -1572,21 +1665,73 @@
             color: #e5e7eb;
             transition: all 0.2s ease;
         `;
-        importButton.addEventListener("mouseenter", () => {
-            importButton.style.transform = "translateY(-1px)";
-            importButton.style.background = "rgba(255,255,255,0.1)";
-            importButton.style.borderColor = "#555";
-            importButton.style.boxShadow = "0 4px 12px rgba(255, 255, 255, 0.1)";
+        importFileButton.addEventListener("mouseenter", () => {
+            importFileButton.style.transform = "translateY(-1px)";
+            importFileButton.style.background = "rgba(255,255,255,0.1)";
+            importFileButton.style.borderColor = "#555";
+            importFileButton.style.boxShadow = "0 4px 12px rgba(255, 255, 255, 0.1)";
         });
-        importButton.addEventListener("mouseleave", () => {
-            importButton.style.transform = "translateY(0)";
-            importButton.style.background = "#0f172a";
-            importButton.style.borderColor = "#1f2937";
-            importButton.style.boxShadow = "none";
+        importFileButton.addEventListener("mouseleave", () => {
+            importFileButton.style.transform = "translateY(0)";
+            importFileButton.style.background = "#0f172a";
+            importFileButton.style.borderColor = "#1f2937";
+            importFileButton.style.boxShadow = "none";
+        });
+
+        // Hidden file input
+        const presetFileInput = document.createElement("input");
+        presetFileInput.type = "file";
+        presetFileInput.accept = "application/json";
+        presetFileInput.style.display = "none";
+        content.appendChild(presetFileInput); // append so it's part of DOM
+
+        importFileButton.addEventListener("click", () => {
+            presetFileInput.click();
+        });
+
+        presetFileInput.addEventListener("change", async (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            try {
+                const text = await file.text();
+                const importData = JSON.parse(text);
+                // Accept current LoremIpsum format and legacy formats for backward compatibility
+                const isValidFormat = (importData.__loremipsum_preset_export__ || importData.__fastfillo_preset_export__) && 
+                                    importData.quiz && importData.data;
+                if (!isValidFormat) {
+                    showToast("Invalid preset file format");
+                    return;
+                }
+                const quizName = importData.quiz;
+                const existingPresets = loadPresets();
+                const incomingQuestions = importData.data.questions || {};
+                if (!existingPresets[quizName]) {
+                    existingPresets[quizName] = {
+                        questions: {},
+                        createdAt: importData.exportedAt || Date.now(),
+                        updatedAt: Date.now()
+                    };
+                }
+                // merge (preserve existing, overwrite with imported on conflict)
+                existingPresets[quizName].questions = {
+                    ...(existingPresets[quizName].questions || {}),
+                    ...incomingQuestions
+                };
+                existingPresets[quizName].updatedAt = Date.now();
+                savePresets(existingPresets);
+                localStorage.setItem('ttf_selected_quiz', quizName);
+                populateQuizSelect();
+                populateQuestionSelect();
+                showToast(`Imported preset file: "${quizName}"`);
+            } catch (err) {
+                console.error("TTF: Preset file import failed", err);
+                showToast("Failed to import file");
+            }
+            event.target.value = ""; // reset
         });
 
         mainButtonsRow.appendChild(enableButton);
-        mainButtonsRow.appendChild(importButton);
+        mainButtonsRow.appendChild(importFileButton); // file import
         actionsSection.appendChild(mainButtonsRow);
         content.appendChild(actionsSection);
 
@@ -1641,10 +1786,14 @@
             display: none;
             flex: 1;
         `;
-        questionStatus.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21,21-4.35-4.35"></path>
-        </svg>Detecting question...`;
+            questionStatus.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Detecting question...
+            `;
         
         const refreshButton = document.createElement("button");
         refreshButton.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1881,7 +2030,7 @@
             Object.keys(presets).forEach(quizName => {
                 const option = document.createElement("option");
                 option.value = quizName;
-                option.textContent = quizName;
+                option.textContent = formatQuizNameForDisplay(quizName);
                 quizSelect.appendChild(option);
             });
 
@@ -2109,16 +2258,21 @@
                 manualCorrectionButton.style.display = activeQuestion ? "block" : "none";
             }
             
-            if (!activeQuestion) {
-                questionStatus.style.display = "block";
-                if (refreshButton) refreshButton.style.display = "block";
-                questionStatus.style.background = "rgba(239, 68, 68, 0.1)";
-                questionStatus.style.borderColor = "rgba(239, 68, 68, 0.2)";
-                questionStatus.textContent = "⚠️ No active question found";
-                return;
-            }
-            
-            let questionId = manualQuestionOverride || detectQuestionNumber(activeQuestion);
+        if (!activeQuestion) {
+            questionStatus.style.display = "block";
+            if (refreshButton) refreshButton.style.display = "block";
+            questionStatus.style.background = "rgba(239, 68, 68, 0.1)";
+            questionStatus.style.borderColor = "rgba(239, 68, 68, 0.2)";
+            questionStatus.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                No active question found
+            `;
+            return;
+        }            let questionId = manualQuestionOverride || detectQuestionNumber(activeQuestion);
             const isManuallyCorrected = manualQuestionOverride !== null;
             if (questionId) {
                 questionStatus.style.display = "block";
@@ -2127,14 +2281,25 @@
                 if (isManuallyCorrected) {
                     questionStatus.style.background = "rgba(245, 101, 101, 0.1)";
                     questionStatus.style.borderColor = "rgba(245, 101, 101, 0.2)";
-                    questionStatus.textContent = `🔧 Manually corrected: ${questionId}`;
+                    questionStatus.innerHTML = `
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                            <path d="M11,4H4a2,2 0,0,0-2,2V18a2,2 0,0,0,2,2H18a2,2 0,0,0,2-2V13"></path>
+                            <polygon points="18.5,2.5 21.5,5.5 18.5,8.5 18.5,2.5"></polygon>
+                            <line x1="18.5" y1="2.5" x2="18.5" y2="8.5"></line>
+                            <line x1="18.5" y1="5.5" x2="21.5" y2="5.5"></line>
+                        </svg>
+                        Manually corrected: ${questionId}
+                    `;
                 } else {
-                questionStatus.style.background = "rgba(34, 197, 94, 0.1)";
-                questionStatus.style.borderColor = "rgba(34, 197, 94, 0.2)";
-                questionStatus.textContent = `✅ Current question: ${questionId}`;
-                }
-                
-                let quizName = localStorage.getItem('ttf_selected_quiz') || getQuizName();
+                    questionStatus.style.background = "rgba(34, 197, 94, 0.1)";
+                    questionStatus.style.borderColor = "rgba(34, 197, 94, 0.2)";
+                    questionStatus.innerHTML = `
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                            <polyline points="20,6 9,17 4,12"></polyline>
+                        </svg>
+                        Current question: ${questionId}
+                    `;
+                }                let quizName = localStorage.getItem('ttf_selected_quiz') || getQuizName();
                 const presets = loadPresets();
                 let hasPreset = presets[quizName] && 
                     presets[quizName].questions && 
@@ -2151,14 +2316,20 @@
                 }
                     
                 if (hasPreset) {
-                    questionStatus.textContent += ` (preset available in "${quizName}")`;
+                    questionStatus.innerHTML += ` (preset available in "${quizName}")`;
                 }
             } else {
                 questionStatus.style.display = "block";
                 if (refreshButton) refreshButton.style.display = "block";
                 questionStatus.style.background = "rgba(251, 146, 60, 0.1)";
                 questionStatus.style.borderColor = "rgba(251, 146, 60, 0.2)";
-                questionStatus.textContent = "🔍 Question number not detected";
+                questionStatus.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21,21-4.35-4.35"></path>
+                    </svg>
+                    Question number not detected
+                `;
             }
         }
 
@@ -2887,7 +3058,16 @@
             const toggleButton = document.createElement("button");
             toggleButton.id = "loremipsum-toggle";
             toggleButton.title = "Show LoremIpsum";
-            toggleButton.innerHTML = "📝 LoremIpsum";
+            toggleButton.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14,2 14,8 20,8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+                LoremIpsum
+            `;
             toggleButton.style.cssText = `
                 position: fixed;
                 right: 16px;
@@ -2938,12 +3118,6 @@
                 populateQuestionSelect();
             }
         });
-
-        importButton.addEventListener("click", async () => {
-            await importPageAnswers();
-        });
-
-
 
         // answer application
         autoLoadButton.addEventListener("click", async () => {
@@ -3041,7 +3215,11 @@
         header.appendChild(title);
 
         const closeButton = document.createElement("button");
-        closeButton.textContent = "−";
+        closeButton.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        `;
         closeButton.title = "Minimize";
         closeButton.style.cssText = `
             background: rgba(255,255,255,0.06);
@@ -3111,7 +3289,13 @@
         actionButtonsRow.style.cssText = "display: flex; gap: 8px; margin-bottom: 12px;";
 
         const extractButton = document.createElement("button");
-        extractButton.innerHTML = "🔍 Import Answers";
+        extractButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21,21-4.35-4.35"></path>
+            </svg>
+            Import Answers
+        `;
         extractButton.style.cssText = `
             flex: 1;
             padding: 10px 12px;
@@ -3150,7 +3334,14 @@
         exportSelect.style.cssText = "padding: 8px 12px; border-radius: 6px; border: 1px solid #1f2937; background: #0f172a; color: #e5e7eb; font-size: 13px; margin-bottom: 8px;";
         
         const exportButton = document.createElement("button");
-        exportButton.innerHTML = "📤 Export Selected Quiz";
+        exportButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17,10 12,15 7,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export Selected Quiz
+        `;
         exportButton.style.cssText = `
             padding: 10px 12px;
             border-radius: 8px;
@@ -3174,7 +3365,13 @@
         });
 
         const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "🗑️ Delete Selected Quiz";
+        deleteButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"></path>
+            </svg>
+            Delete Selected Quiz
+        `;
         deleteButton.style.cssText = `
             padding: 10px 12px;
             border-radius: 8px;
@@ -3215,7 +3412,7 @@
             Object.keys(presets).forEach(quizName => {
                 const option = document.createElement("option");
                 option.value = quizName;
-                option.textContent = quizName;
+                option.textContent = formatQuizNameForDisplay(quizName);
                 exportSelect.appendChild(option);
             });
         };
@@ -3267,9 +3464,12 @@
             
             try {
                 await extractAnswersFromReview(quizName);
-                statusDisplay.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
-                    <polyline points="20,6 9,17 4,12"></polyline>
-                </svg>Answers imported and saved!`;
+                statusDisplay.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                        <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                    Answers imported and saved!
+                `;
                 statusDisplay.style.background = "rgba(34, 197, 94, 0.1)";
                 statusDisplay.style.borderColor = "rgba(34, 197, 94, 0.2)";
                 
@@ -3277,11 +3477,14 @@
                 updateExportDropdown();
                 
             } catch (error) {
-                statusDisplay.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                </svg>Failed to import answers`;
+                statusDisplay.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline; margin-right: 4px;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                    Failed to import answers
+                `;
                 statusDisplay.style.background = "rgba(239, 68, 68, 0.1)";
                 statusDisplay.style.borderColor = "rgba(239, 68, 68, 0.2)";
                 console.error("TTF: Import failed:", error);
@@ -3357,7 +3560,16 @@
             if (!minimizedIndicator) {
                 minimizedIndicator = document.createElement("div");
                 minimizedIndicator.id = "ttf-review-minimized";
-                minimizedIndicator.innerHTML = "📝 Save Answers";
+                minimizedIndicator.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14,2 14,8 20,8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10,9 9,9 8,9"></polyline>
+                    </svg>
+                    Save Answers
+                `;
                 minimizedIndicator.style.cssText = `
                     position: fixed;
                     bottom: 20px;

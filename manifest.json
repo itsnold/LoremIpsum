@@ -6,7 +6,7 @@
          "32": "icons/icon32.png",
          "48": "icons/icon48.png"
       },
-   "default_title": "LoremIpsum"
+   "default_title": "Lorem Ipsum"
    },
    "background": {
       "service_worker": "background.js"
@@ -20,7 +20,7 @@
    },
 
    "manifest_version": 3,
-   "name": "LoremIpsum",
+   "name": "Lorem Ipsum",
    "options_ui": {
       "open_in_tab": true,
       "page": "options.html"
